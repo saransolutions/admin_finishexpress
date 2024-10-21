@@ -1,0 +1,4 @@
+node_modules
+bills/*
+.vscode
+.vscode/*
