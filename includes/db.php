@@ -1,7 +1,11 @@
 <?php
 
 function getDBConnection(){
-	$conn=mysqli_connect('localhost', DB_USER, DB_PASS, DB_NAME) or die("error occurred on getConnection " . mysqli_error($conn));
+	$username = getenv("DB_USER");
+	$password = getenv("DB_PASS");
+	$name = getenv("DB_NAME");
+	$conn = null;
+	$conn=mysqli_connect('localhost', $username, $password, $name) or die("error occurred on getConnection " . mysqli_error($conn));
 	return $conn;
 }
 function executeSQL($sql){
@@ -65,7 +69,13 @@ function cheSNull($value){
 function verifyUser($username, $password){
     $bid= -1;
 	$sql= "SELECT bid, role FROM ".DB_NAME.".bookies WHERE username ='".$username."' and password = '".$password."'";
+	echo $sql;
+	echo "<br>";
 	$rows= getFetchArray($sql);
+	echo "query executed ";
+	echo $rows;
+	echo "<br>";
+	echo count($rows);
     if ($rows != null){
         $rowCounts= count($rows);
         if($rowCounts != 0) {

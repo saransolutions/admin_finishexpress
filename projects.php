@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'includes/cons.php';
 require_once 'includes/db.php';
 require_once 'includes/webpage.php';
@@ -9,13 +10,11 @@ require_once 'includes/project/select.php';
 require_once 'includes/project/update.php';
 require_once 'includes/project/body.php';
 
+checkUserLoggedIn();
 $page_php = "projects.php";
 $page_title = "Projects";
 
-/* if (isset($_POST["add-new-project-form"])){
-    insert_project($_POST);
-    header('Location: '.$page_php);
-} */
+
 if (isset($_GET["add_new"])) {
     require_once 'includes/project/insert/step1.php';
     echo create_project_form_step_1();
@@ -30,15 +29,16 @@ if (isset($_GET["add_new"])) {
     require_once 'includes/report/report.php';
     report_form(null, null, "year");
 } elseif (isset($_GET["export"])) {
-    require_once 'includes/report/report.php';
-    export_report($_GET["export"], $_GET["type"]);
+     require_once 'includes/report/report.php';
+    export_report($_GET["export"], $_GET["type"],$_GET["buchhaltung"]);
 } elseif (isset($_POST["report"])) {
     require_once 'includes/report/report.php';
     $input = $_POST["input_value"];
     $type = $_POST["type"];
+    $buchhaltung = $_POST["buchhaltung"];
     $data = run_report($input, $type);
     if ($data != null) {
-        $button = '<a class="btn btn-danger float-right" href="projects.php?type='.$type.'&export=' . $input . '" role="button">Export</a>';
+        $button = ' <div class="card-body"><a class="btn btn-info float-right" href="projects.php?type='.$type.'&export=' . $input . '&buchhaltung=' . $buchhaltung . '" role="button">Export</a></div><br>';
         report_form($button . " " . $data, $input, $type);
     } else {
         $button = '<div class="alert alert-danger" role="alert">
@@ -49,6 +49,7 @@ if (isset($_GET["add_new"])) {
 } elseif (isset($_GET["gallery"])) {
     require_once 'includes/album/select/view.php';
 } elseif (isset($_GET["service"])) {
+   
     require_once 'includes/project/insert/step2.php';
     echo create_project_form_step_2($_GET["service"]);
 } elseif (isset($_POST["action"])) {
@@ -71,54 +72,18 @@ if (isset($_GET["add_new"])) {
     require_once 'includes/album/insert/step1.php';
     upload_photo($_POST, $_FILES);
     header('Location: ' . $page_php);
-} elseif (isset($_GET["export_id"])) {
-    require_once __DIR__ . '/vendor/autoload.php';
+}/* elseif (isset($_GET["export_id"])) {
+    require_once COMPOSER_REPO . '/mpdf/vendor/autoload.php';
     export($_GET["export_id"]);
-} elseif (isset($_GET["invoice_id"])) {
-    require_once __DIR__ . '/vendor/autoload.php';
+}*/ elseif (isset($_GET["invoice_id"])) {
+    require_once COMPOSER_REPO . '/mpdf/vendor/autoload.php';
     $id = $_GET["invoice_id"];
     $lang = $_GET["lang"];
     $content = invoice($id, $lang);
-
-    $mpdf = new \Mpdf\Mpdf([
-        'margin_left' => 20,
-        'margin_right' => 15,
-        'margin_top' => 48,
-        'margin_bottom' => 25,
-        'margin_header' => 10,
-        'margin_footer' => 10
-    ]);
-
-    $mpdf->SetProtection(array('print'));
-    $mpdf->SetAuthor("author");
-    $mpdf->showWatermarkText = true;
-    $mpdf->watermark_font = 'DejaVuSansCondensed';
-    $mpdf->watermarkTextAlpha = 0.1;
-    $mpdf->SetDisplayMode('fullpage');
-    $mpdf->WriteHTML($content);
-    $file_name = "FE-00" . $id . "_" . date("d-m-Y") . ".pdf";
-    $mpdf->Output($file_name, "I");
+    pdf_document($content, "FE-00");
 } elseif (isset($_GET["letter_pad"])) {
-    require_once __DIR__ . '/vendor/autoload.php';
     $content = letter_pad(123);
-    $mpdf = new \Mpdf\Mpdf([
-        'margin_left' => 20,
-        'margin_right' => 15,
-        'margin_top' => 48,
-        'margin_bottom' => 25,
-        'margin_header' => 10,
-        'margin_footer' => 10
-    ]);
-
-    $mpdf->SetProtection(array('print'));
-    $mpdf->SetAuthor("author");
-    $mpdf->showWatermarkText = true;
-    $mpdf->watermark_font = 'DejaVuSansCondensed';
-    $mpdf->watermarkTextAlpha = 0.1;
-    $mpdf->SetDisplayMode('fullpage');
-    $mpdf->WriteHTML($content);
-    $file_name = "letter-pad" . "_" . date("d-m-Y") . ".pdf";
-    $mpdf->Output($file_name, "I");
+    pdf_document($content, "letter-pad");
 } elseif (isset($_GET["pay_id"])) {
     echo get_pay_form($_GET["pay_id"]);
 } elseif (isset($_GET["edit_id"])) {
@@ -146,6 +111,9 @@ if (isset($_GET["add_new"])) {
     <a class="btn btn-primary btn-sm" href="projects.php?lang=de&invoice_id=' . $id . '" target="_blank" role="button">Deutsch</a>
     <a class="btn btn-secondary btn-sm" href="projects.php?lang=fr&invoice_id=' . $id . '" target="_blank" role="button">Französisch</a>
     ';
+}elseif (isset($_GET["calendar"])) {
+    require_once 'includes/calendar/view.php';
+    
 } else {
 ?>
     <!DOCTYPE html>

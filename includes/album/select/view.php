@@ -54,7 +54,7 @@ function __images($id){
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>FinishExpress - Gallery</title>
+    <title><?php echo MAIN_TITLE;?> - Gallery</title>
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -210,7 +210,7 @@ function __images($id){
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; FinishExpress 2024</span><br>
+                        <span>Copyright &copy; <?php echo MAIN_TITLE;?> 2024</span><br>
                         <span>Designed by <a href="https://saransolutions.ch/">Saran Solutions</a></span>
                     </div>
                 </div>

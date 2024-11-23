@@ -10,7 +10,7 @@ function create_project_form_step_1()
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>FinishExpress - Create New Project</title>
+    <title><?php echo MAIN_TITLE;?> - Create New Project</title>
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -48,59 +48,112 @@ function create_project_form_step_1()
               </div>
             </div>
             <!-- End Action buttons -->
+            <div class="container-fluid">
 
-            <!-- start card - steps -->
-            <div class="card">
-              <div class="card-header border-bottom">
-                <!-- Wizard navigation-->
-                <div class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
-                  <!-- Wizard navigation item 1-->
-                  <a class="nav-item nav-link active" href="#wizard1" data-bs-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
-                    <div class="wizard-step-text mt-4">
-                      <div class="wizard-step-text-name">Step <span class="badge badge-light">1 </span></div>
+                  
+   <!-- step start -->
+<div class="row">
+
+      <!-- step 1 -->
+      <div class="col-lg-2 col-md-6 mb-4">
+        <div class="card border-left-danger border-bottom-danger shadow h-75 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xl font-weight-bold text-danger text-uppercase mb-1">
+                            Step 1</div>
                     </div>
-                  </a>
-                  <!-- Wizard navigation item 2-->
-                  <a class="nav-item nav-link" href="#wizard2" data-bs-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
-                    <div class="wizard-step-text mt-4">
-                      <div class="wizard-step-text-name">Step <span class="badge badge-light">2 </span></div>
-                    </div>
-                  </a>
-                  <!-- Wizard navigation item 3-->
-                  <a class="nav-item nav-link" href="#wizard3" data-bs-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
-                    <div class="wizard-step-text mt-4">
-                      <div class="wizard-step-text-name">Step <span class="badge badge-light">3 </span></div>
-                    </div>
-                  </a>
-                  <!-- Wizard navigation item 4-->
-                  <a class="nav-item nav-link" href="#wizard4" data-bs-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
-                    <div class="wizard-step-text mt-4">
-                      <div class="wizard-step-text-name">Step <span class="badge badge-light">4 </span></div>
-                    </div>
-                  </a>
-                  <!-- Wizard navigation item 5-->
-                  <a class="nav-item nav-link" href="#wizard1" data-bs-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
-                    <div class="wizard-step-text mt-4">
-                      <div class="wizard-step-text-name">Step <span class="badge badge-light">5 </span></div>
-                    </div>
-                  </a>
+                  
                 </div>
-              </div>
             </div>
-            <!-- end card - steps -->
+        </div>
+    </div>
+
+         <!-- step 2 -->
+    <div class="col-lg-2 col-md-6 mb-4">
+        <div class="card border-left-Info shadow h-75 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xl font-weight-bold text-Info text-uppercase mb-2">
+                            Step 2</div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- step 3 -->
+    <div class="col-lg-2 col-md-6 mb-4">
+        <div class="card border-left-Info shadow h-75 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xl font-weight-bold text-Info text-uppercase mb-2">
+                            Step 3</div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- step 4 -->
+    <div class="col-lg-2 col-md-6 mb-4">
+        <div class="card border-left-Info shadow h-75 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xl font-weight-bold text-Info text-uppercase mb-2">
+                            Step 4</div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="col-lg-2 col-md-6 mb-4">
+        <div class="card border-left-Info shadow h-75 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xl font-weight-bold text-Info text-uppercase mb-2">
+                            Step 5</div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+<div class="container-fluid">
+
+<!-- Page Heading -->
 
 
-            <!-- start form + cart -->
-            <div class="row" style="padding:10px;">
-              <div class="col-md-12 col-lg-9">
-                <div class="card text-center">
-                  <div class="card-body">
-                    <h1>Neues Projekt</h1>
-                    <div class="dropdown" style="padding-top:5%;">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<!-- Content Row -->
+<div class="row">
+
+    <div class="col-xl-8 col-lg-7">
+
+        <!-- Area Chart -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Wählen Sie ihre Diensleitung</h6>
+            </div>
+            <div class="card-body">
+            <div class="dropdown" >
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Service auswählen
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="projects.php?service=Unterhalt_Reinigung">Unterhalt Reinigung</a>
+                      <a class="dropdown-item" href="projects.php?service=Gastronomie_Reinigung">Gastronomie Reinigung</a>
                         <a class="dropdown-item" href="projects.php?service=Häusern_Reinigung">Häusern Reinigung</a>
                         <a class="dropdown-item" href="projects.php?service=Wohnung_Reinigung">Wohnung Reinigung</a>
                         <a class="dropdown-item" href="projects.php?service=Treppen_Reinigung">Treppen Reinigung</a>
@@ -109,33 +162,47 @@ function create_project_form_step_1()
                         <a class="dropdown-item" href="projects.php?service=Umzug">Umzug</a>
                         <a class="dropdown-item" href="projects.php?service=Umzug_bei_Reinigung">Umzug bei Reinigung</a>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                      </div>      
+                
+            </div>
+        </div>
 
-              <!-- start of cart -->
-              <div class="col-sm">
-                <div class="col-md-12 col-lg-9 order-md-last">
-                  <h4 class="">
-                    <span class="text-primary">Your cart</span>
-                    <span class="badge badge-dark bg-primary rounded-pill">1</span>
-                  </h4>
-                  <ul class="list-group">
+    </div>
+
+    <!-- Added Service -->
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Diensleitung-info</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+            <ul class="list-group">
                     <li class="list-group-item d-flex">
                       <div>
-                        <h6 class="my-0">Product name</h6>
-                        <small class="text-muted">New Project</small>
+                        <h6 class="my-0"></h6>
+                        <small class="text-muted">Neu Projekt</small>
                       </div>
                     </li>
                     <li class="list-group-item d-flex">
-                      <span>Total </span>
+                      <span>Preis </span>
                       <strong> 0 CHF</strong>
                     </li>
                   </ul>
-                </div>
-              </div>
-              <!-- end of cart -->
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</div>
+<!-- /.container-fluid -->
+
+ 
+
+           
             </div>
             <!-- end of form + cart -->
           </div>

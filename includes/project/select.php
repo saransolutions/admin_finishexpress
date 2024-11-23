@@ -3,174 +3,167 @@
 function get_main_table()
 {
     $sql = "select * from " . DB_NAME . ".projects ORDER BY id DESC";
-    $part1 = '<table class="table table-bordered" cellspacing="0" width="100%" id="dataTable" cellspacing="0">
-    <thead>
-        <tr>
-            <th class="w-auto p-1">S.No</th>
-            <th>Name</th>
-            <th>Handy</th>
-            <th>Diensleitung</th>
-            <th>Gebäude</th>
-            <th>Stöck</th>
-            <th>Datum</th>
-            <th>Gesamt</th>
-            <th>Vorauszahlung</th>
-            <th>Saldo</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        ';
-    $data = '';
-    $rows = getFetchArray($sql);
-    foreach ($rows as $result) {
-        $status = "Requested";
-        $id = $result['id'];
-        $name = $result['first_name'] . ' ' . $result['last_name'];
-        $type_of_service = $result["type_of_service"];
-        $building_type = $result["building_type"];
-        $floor = $result["floor"];
-        $number_of_rooms = $result["number_of_rooms"];
-        $square_meters = $result["square_meters"];
-        $is_elevator = $result["is_elevator"];
-        $execution_date = $result["start_date_time"];
-
-        $first_name = $result["first_name"];
-        $last_name = $result["last_name"];
-        $address = $result["address"];
-        $ort = $result["ort"];
-        $pin_code = $result["pin_code"];
-        $mobile = $result["mobile"];
-        $email = $result["email"];
-
-        $total_price = $result["total_price"];
-        $advance_amount = $result["advance_amount"];
-        $balance = $result["balance"];
-
-        $data = $data . '<tr>
-            <td class="w-auto p-1"><input type="checkbox" class="btn-check" name="edit_id" value="' . $id . '" autocomplete="off"></td>
-			<td><a href="projects.php?pid=' . $id . '">' . $name . '</a></td>
-            <td>' . $mobile . '</td>
-            <td>' . $type_of_service . '</td>
-            <td>' . $building_type . '</td>
-            <td>' . $floor . '</td>
-            <td>' . $execution_date . '</td>
-            <td>' . $total_price . '</td>
-            <td>' . $advance_amount . '</td>
-            <td>' . $balance . '</td>
-            <td>' . get_status($total_price, $advance_amount, $balance) . '</td>
-		</tr>';
-    }
-
-    $part3 = '
-    </tbody>
-</table>';
+    $part1 = '
+    <div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Projekt-Info</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable"  cellspacing="0" >
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Tel-Num</th>
+                        <th>Diensleitung</th>
+                        <th>Gebäude</th>
+                        <th>Stock</th>
+                        <th>Datum</th>
+                        <th>Preis</th>
+                        <th>Salary</th>
+                    </tr>
+                </thead>
+               
+                <tbody> ';
+                $data = '';
+                $rows = getFetchArray($sql);
+                foreach ($rows as $result) {
+                    $status = "Requested";
+                    $id = $result['id'];
+                    $name = $result['first_name'] . ' ' . $result['last_name'];
+                    $type_of_service = $result["type_of_service"];
+                    $building_type = $result["building_type"];
+                    $floor = $result["floor"];
+                    $number_of_rooms = $result["number_of_rooms"];
+                    $square_meters = $result["square_meters"];
+                    $is_elevator = $result["is_elevator"];
+                    $execution_date = $result["start_date_time"];
+            
+                    $first_name = $result["first_name"];
+                    $last_name = $result["last_name"];
+                    $address = $result["address"];
+                    $ort = $result["ort"];
+                    $pin_code = $result["pin_code"];
+                    $mobile = $result["mobile"];
+                    $email = $result["email"];
+            
+                    $total_price = $result["total_price"];
+                    $advance_amount = $result["advance_amount"];
+                    $balance = $result["balance"];
+            
+                    $data = $data . '<tr>
+                        <td class="w-auto p-1"><input type="checkbox" class="btn-check" name="edit_id" value="' . $id . '" autocomplete="off"></td>
+                        <td><a href="projects.php?pid=' . $id . '">' . $name . '</a></td>
+                        <td>' . $mobile . '</td>
+                        <td>' . $type_of_service . '</td>
+                        <td>' . $building_type . '</td>
+                        <td>' . $floor . '</td>
+                        <td>' . $execution_date . '</td>
+                        <td>' . $total_price . '</td>
+                       
+                        <td>' . get_status($total_price, $advance_amount, $balance) . '</td>
+                    </tr>';
+                }
+            
+                $part3 = '
+                 </tbody>
+            </table>
+            </div>
+            </div>
+       ';
     return $part1 . $data . $part3;
 }
 
-function export($id)
-{
-    $sql = "select * from " . DB_NAME . ".projects where id=" . $id;
-    $rows = getFetchArray($sql);
-    $data = '';
-    if (count($rows) > 0) {
-        $result = $rows[0];
-        $delivery_date = $result["start_date_time"];
-        if ($delivery_date == null) {
-            return null;
-        }
-        $part1 = pdf_head() . '
-        <body>
-        ' . pdf_block($id) . '
-        <div style="text-align: right">Date: ' . date('F j, Y', strtotime($delivery_date)) . '</div>
-        <br />
-        <table class="items" width="100%" style="font-size: 9pt; border-collapse: collapse; " cellpadding="8">';
+    
+   
+// function export($id)
+// {
+//     $sql = "select * from " . DB_NAME . ".projects where id=" . $id;
+//     $rows = getFetchArray($sql);
+//     $data = '';
+//     if (count($rows) > 0) {
+//         $result = $rows[0];
+//         $delivery_date = $result["start_date_time"];
+//         if ($delivery_date == null) {
+//             return null;
+//         }
+//         $part1 = pdf_head() . '
+//         <body>
+//         ' . pdf_block($id) . '
+//         <div style="text-align: right">Date: ' . date('F j, Y', strtotime($delivery_date)) . '</div>
+//         <br />
+//         <table class="items" width="100%" style="font-size: 9pt; border-collapse: collapse; " cellpadding="8">';
 
-        $id = $result['id'];
-        $name = $result['first_name'] . ' ' . $result['last_name'];
-        $type_of_service = $result["type_of_service"];
-        $building_type = $result["building_type"];
-        $floor = $result["floor"];
-        $number_of_rooms = $result["number_of_rooms"];
-        $square_meters = $result["square_meters"];
-        $is_elevator = $result["is_elevator"];
-        $execution_date = $result["start_date_time"];
+//         $id = $result['id'];
+//         $name = $result['first_name'] . ' ' . $result['last_name'];
+//         $type_of_service = $result["type_of_service"];
+//         $building_type = $result["building_type"];
+//         $floor = $result["floor"];
+//         $number_of_rooms = $result["number_of_rooms"];
+//         $square_meters = $result["square_meters"];
+//         $is_elevator = $result["is_elevator"];
+//         $execution_date = $result["start_date_time"];
 
-        $address = $result["address"];
-        $ort = $result["ort"];
-        $pin_code = $result["pin_code"];
-        $mobile = $result["mobile"];
-        $email = $result["email"];
+//         $address = $result["address"];
+//         $ort = $result["ort"];
+//         $pin_code = $result["pin_code"];
+//         $mobile = $result["mobile"];
+//         $email = $result["email"];
 
-        $total_price = $result["total_price"];
-        $advance_amount = $result["advance_amount"];
-        $balance = $result["balance"];
+//         $total_price = $result["total_price"];
+//         $advance_amount = $result["advance_amount"];
+//         $balance = $result["balance"];
 
-        $comments_1 = $result["comments_1"];
-        $comments_2 = $result["comments_2"];
-        $comments_3 = $result["comments_3"];
+//         $comments_1 = $result["comments_1"];
+//         $comments_2 = $result["comments_2"];
+//         $comments_3 = $result["comments_3"];
 
-        $data .= pdf_table_tr_th_td_span("<h3>Personal Details</h3>");
+//         $data .= pdf_table_tr_th_td_span("<h3>Personal Details</h3>");
 
-        $data .= pdf_table_tr_th_td("Name", $name);
-        $data .= pdf_table_tr_th_td("Address", $address);
-        $data .= pdf_table_tr_th_td("Ort", $ort);
-        $data .= pdf_table_tr_th_td("Pin Code", $pin_code);
-        $data .= pdf_table_tr_th_td("Mobile", $mobile);
-        $data .= pdf_table_tr_th_td("E-Mail", $email);
+//         $data .= pdf_table_tr_th_td("Name", $name);
+//         $data .= pdf_table_tr_th_td("Address", $address);
+//         $data .= pdf_table_tr_th_td("Ort", $ort);
+//         $data .= pdf_table_tr_th_td("Pin Code", $pin_code);
+//         $data .= pdf_table_tr_th_td("Mobile", $mobile);
+//         $data .= pdf_table_tr_th_td("E-Mail", $email);
 
-        $data .= pdf_table_tr_th_td_span("<h3>Project Details</h3>");
-        $data .= pdf_table_tr_th_td("Type of Service", $type_of_service);
-        $data .= pdf_table_tr_th_td("Square meters", $square_meters);
-        $data .= pdf_table_tr_th_td("Building Type", $building_type);
-        $data .= pdf_table_tr_th_td("Floor", $floor);
+//         $data .= pdf_table_tr_th_td_span("<h3>Project Details</h3>");
+//         $data .= pdf_table_tr_th_td("Type of Service", $type_of_service);
+//         $data .= pdf_table_tr_th_td("Square meters", $square_meters);
+//         $data .= pdf_table_tr_th_td("Building Type", $building_type);
+//         $data .= pdf_table_tr_th_td("Floor", $floor);
 
-        $data .= pdf_table_tr_th_td("Number of rooms ", $number_of_rooms);
-        $data .= pdf_table_tr_th_td("is Elevator ", $is_elevator);
-        $data .= pdf_table_tr_th_td("Execution Date ", $execution_date);
+//         $data .= pdf_table_tr_th_td("Number of rooms ", $number_of_rooms);
+//         $data .= pdf_table_tr_th_td("is Elevator ", $is_elevator);
+//         $data .= pdf_table_tr_th_td("Execution Date ", $execution_date);
 
-        $data .= pdf_table_tr_th_td_span("<h3>Payment Details</h3>");
+//         $data .= pdf_table_tr_th_td_span("<h3>Payment Details</h3>");
 
-        $data .= pdf_table_tr_th_td("Total price ", $total_price);
-        $data .= pdf_table_tr_th_td("Advance amount ", $advance_amount);
-        $data .= pdf_table_tr_th_td("balance ", $balance);
+//         $data .= pdf_table_tr_th_td("Total price ", $total_price);
+//         $data .= pdf_table_tr_th_td("Advance amount ", $advance_amount);
+//         $data .= pdf_table_tr_th_td("balance ", $balance);
 
-        $data .= pdf_table_tr_th_td_span("<h3>Extra Details</h3>");
-        $data .= pdf_table_tr_th_td("Comments 1 ", $comments_1);
-        $data .= pdf_table_tr_th_td("Comments 2 ", $comments_2);
-        $data .= pdf_table_tr_th_td("Comments 3 ", $comments_3);
+//         $data .= pdf_table_tr_th_td_span("<h3>Extra Details</h3>");
+//         $data .= pdf_table_tr_th_td("Comments 1 ", $comments_1);
+//         $data .= pdf_table_tr_th_td("Comments 2 ", $comments_2);
+//         $data .= pdf_table_tr_th_td("Comments 3 ", $comments_3);
 
-        $part2 = '</tbody>
-        </table>';
-        $part2 .= '</body></html>';
-        $content = $part1 . $data . $part2;
-        echo $content;
-
-        // // Create an instance of the class:
-        // $mpdf = new \Mpdf\Mpdf([
-        //     'margin_left' => 20,
-        //     'margin_right' => 15,
-        //     'margin_top' => 48,
-        //     'margin_bottom' => 25,
-        //     'margin_header' => 10,
-        //     'margin_footer' => 10
-        // ]);
-
-        // $mpdf->SetProtection(array('print'));
-        // $mpdf->SetAuthor(MAIN_TITLE);
-        // $mpdf->showWatermarkText = true;
-        // $mpdf->watermark_font = 'DejaVuSansCondensed';
-        // $mpdf->watermarkTextAlpha = 0.1;
-        // $mpdf->SetDisplayMode('fullpage');
-        // $mpdf->WriteHTML($content);
-        // $file_name = 'FE-00' . $id . '_' . str_replace(' ', '_', $name) . '.pdf';
-        // $mpdf->Output($file_name, "I");
-    }
-}
+//         $part2 = '</tbody>
+//         </table>';
+//         $part2 .= '</body></html>';
+//         $content = $part1 . $data . $part2;
+//         echo $content;
+//     }
+// }
 
 function letter_pad($id)
 {
-    return pdf_head() . '<body>' . pdf_block($id) . '</body>';
+    $subject=$_POST['subject'];
+    $name 	 = $_POST['name'];
+    $message = $_POST['message'];
+   
+    return pdf_head() . '<body>' . pdf_block($id) . '<h4><b>'.$subject.'</b></h4><br>'.$name.'<br><pre>'.$message.'</pre></body>';
 }
 
 function invoice($id, $lang)
@@ -210,7 +203,7 @@ function invoice($id, $lang)
         } else {
             $square_meters='';
         }
-      
+        
         $comments_line = null;
         $comments_1 = $result["comments_1"];
         if ($comments_1 =! null && strlen($comments_1) >0 ) {
@@ -238,7 +231,6 @@ function invoice($id, $lang)
                     <div>
                     <p><span style="font-weight: normal; font-size: 10pt;">Auftrag Nr. #FE-00' . $id . ' </span></p>
                     <p><span style="font-weight: normal; font-size: 10pt;">' . date('d-m-Y', strtotime($created_date)) . ' </span></p>
-                 
                     </div>
                 </td>
                 <td width="50%" style="text-align: right;">
@@ -251,8 +243,6 @@ function invoice($id, $lang)
                     </div>
                 </td>
             </tr>
-           
-          
         </table>
         ';
         } else {
@@ -409,6 +399,7 @@ function invoice($id, $lang)
                     ' . date('d-m-Y', strtotime($end_date)) . ' ' . date('H:i', strtotime($end_date)) . '
                 </td>
             </tr>
+            <tr><td colspan="2">'.is_repeat($id, $lang).'</td></tr>
             <tr>
                 <td width="30%" style="text-align: left;font-size:11pt;">
                     Zahlungskondition
@@ -562,6 +553,7 @@ function get_single_project($id)
         $comments_1 = $result["comments_1"];
         $comments_2 = $result["comments_2"];
         $comments_3 = $result["comments_3"];
+        
 
 
         $data .= '<tr><td>Name</td><td>' . $name . '</td></tr>';
@@ -591,8 +583,30 @@ function get_single_project($id)
         $data .= '<tr><td>Comments 1</td><td>' . $comments_1 . '</td></tr>';
         $data .= '<tr><td>Comments 2</td><td>' . $comments_2 . '</td></tr>';
         $data .= '<tr><td>Comments 3</td><td>' . $comments_3 . '</td></tr>';
+        $rows = [];
+        $task_id = getSingleValue("select id from ".DB_NAME.".repeat_tasks where parent_id=".$id);
+        if ($task_id != null){
+            $is_repeat = "yes";
+            $rows = getFetchArray("select * from ".DB_NAME.".repeat_tasks where parent_id=".$id);
+            if($rows != null && count($rows)>0){
+                $data .= '<tr><td colspan="2"><strong>Repeat Details</strong></td></tr>';
+                $data .= '<tr><td>Is Repeat?</td><td>' . ucwords($is_repeat) . '</td></tr>';
+                foreach($rows as $row){
+                    $data .= '<tr><td>Number of Cycles</td><td>' . $row['number_cycles'] . '</td></tr>';
+                    $data .= '<tr><td>Task in Hours</td><td>' . $row['diff_hours'] . '</td></tr>';
+                    $data .= '<tr><td>Total Hours</td><td>' . $row['total_hours'] . '</td></tr>';
+                    $data .= '<tr><td>Days </td><td>' . ucwords(str_replace("_", " ", $row['days']))  . '</td></tr>';
+                }
+                $data .= '<tr><td colspan="2"><strong>Date Details</strong></td></tr>';
+                $rows = getFetchArray("select * from ".DB_NAME.".repeat_dates where parent_id=".$task_id);
+                $count = 1;
+                foreach($rows as $row){
+                    $data .= '<tr><td>'.$count.'</td><td>' . $row['start_date_time']  . ' - '.$row['end_date_time'].'</td></tr>';
+                    $count += 1;
+                }
+            }
+        }
     }
-
     $part3 = '
     </tbody>
 </table>';
@@ -753,5 +767,26 @@ function reports_form()
 
 <?php }
 
+function is_repeat($id, $lang){
+    $result="";
+    $rows = getFetchArray("select * from ".DB_NAME.".repeat_tasks where parent_id=".$id);
+    if($rows != null && count($rows)>0){
+        $result .= '<table width="100%" style="background:#f2f2f2;">';
+        $result .= pdf_row("is Repeat?", "Yes");
+        foreach($rows as $row){
+            $result .= pdf_row("Number of Cycles", $row['number_cycles']);
+            $result .= pdf_row("Total Hours", $row['total_hours']);
+            $result .= pdf_row("Days", ucwords(str_replace("_", " ", $row['days'])));
+            $rows = getFetchArray("select * from ".DB_NAME.".repeat_dates where parent_id=".$row['id']);
+            $count = 1;
+            foreach($rows as $row){
+                $result .= pdf_row("Slot ".$count, $row['start_date_time']);
+                $count += 1;
+            }
+        }
+        $result .= "</table>";
+    }
+    return $result;
+}
 
 ?>

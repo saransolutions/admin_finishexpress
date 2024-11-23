@@ -70,6 +70,8 @@ function get_body()
                         <!-- End Action buttons -->
                         <?php echo main_content(); ?>
                         <!-- main content -->
+                         
+
                     </div>
                     <!-- /.container-fluid -->
 
@@ -219,7 +221,6 @@ function get_body()
 
         <!-- Page level custom scripts -->
         <script src="js/demo/datatables-demo.js"></script>
-
     </body>
 <?php
 }

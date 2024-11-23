@@ -3,23 +3,6 @@ function step4($data)
 {
     $service = $data["service"];
     $word = str_replace("_", " ", $service);
-    $start_date = $data["start_date"];
-    $end_date = $data["end_date"];
-
-    $building_type = $data["building_type"];
-    $number_of_rooms = $data["number_of_rooms"];
-    $floor = $data["floor"];
-    $square_meters = $data["square_meters"];
-    $is_elevator = $data["is_elevator"];
-    $ort_von = "";
-    if (isset($data["ort_von"])) {
-        $ort_von = $data["ort_von"];
-    }
-
-    $ort_nach = "";
-    if (isset($data["ort_nach"])) {
-        $ort_nach = $data["ort_nach"];
-    }
 ?>
     <?php echo step4_head(); ?>
 
@@ -44,95 +27,136 @@ function step4($data)
                         </div>
                         <!-- End Action buttons -->
                         <!-- start card - steps -->
-                        <div class="card">
-                            <div class="card-header border-bottom">
-                                <!-- Wizard navigation-->
-                                <div class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
-                                    <!-- Wizard navigation item 1-->
-                                    <a class="nav-item nav-link" href="#wizard1" data-bs-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
-                                        <div class="wizard-step-text mt-4">
-                                            <div class="wizard-step-text-name">Step <span class="badge badge-light">1 </span></div>
-                                        </div>
-                                    </a>
-                                    <!-- Wizard navigation item 2-->
-                                    <a class="nav-item nav-link" href="#wizard1" data-bs-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
-                                        <div class="wizard-step-text mt-4">
-                                            <div class="wizard-step-text-name">Step <span class="badge badge-light">2 </span></div>
-                                        </div>
-                                    </a>
-                                    <!-- Wizard navigation item 3-->
-                                    <a class="nav-item nav-link" href="#wizard1" data-bs-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
-                                        <div class="wizard-step-text mt-4">
-                                            <div class="wizard-step-text-name">Step <span class="badge badge-light">3 </span></div>
-                                        </div>
-                                    </a>
-                                    <!-- Wizard navigation item 4-->
-                                    <a class="nav-item nav-link active" href="#wizard1" data-bs-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
-                                        <div class="wizard-step-text mt-4">
-                                            <div class="wizard-step-text-name">Step <span class="badge badge-light">4 </span></div>
-                                        </div>
-                                    </a>
-                                    <!-- Wizard navigation item 5-->
-                                    <a class="nav-item nav-link" href="#wizard1" data-bs-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
-                                        <div class="wizard-step-text mt-4">
-                                            <div class="wizard-step-text-name">Step <span class="badge badge-light">5 </span></div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end card - steps -->
-                        <!-- start of form + cart -->
-                        <div class="row mt-4">
-                            <div class="col-sm">
-                            </div>
-                            <div class="col-sm">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h1>New <?php echo $word; ?> Project</h1>
-                                        <!--form-->
-                                        <?php echo step4_form(
-                                            $service,
-                                            $start_date,
-                                            $end_date,
-                                            $building_type,
-                                            $number_of_rooms,
-                                            $floor,
-                                            $square_meters,
-                                            $is_elevator,
-                                            $ort_von,
-                                            $ort_nach
-                                        ); ?>
-                                        <!--form-->
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="container-fluid">
 
-                            <!-- start of cart -->
-                            <div class="col-sm">
-                                <!-- cart -->
-                                <?php echo step4_cart(
-                                    $word,
-                                    $start_date,
-                                    $end_date,
-                                    $building_type,
-                                    $number_of_rooms,
-                                    $floor,
-                                    $square_meters,
-                                    $is_elevator,
-                                    $ort_von,
-                                    $ort_nach
-                                ); ?>
-                                <!-- cart -->
-                            </div>
-                            <!-- end of cart -->
+                  
+<!-- step start -->
+<div class="row">
+
+   <!-- step 1 -->
+   <div class="col-lg-2 col-md-6 mb-4">
+     <div class="card border-left-Info shadow h-75 py-2">
+         <div class="card-body">
+             <div class="row no-gutters align-items-center">
+                 <div class="col mr-2">
+                     <div class="text-xl font-weight-bold text-Info text-uppercase mb-1">
+                         Step 1</div>
+                 </div>
+               
+             </div>
+         </div>
+     </div>
+ </div>
+
+      <!-- step 2 -->
+ <div class="col-lg-2 col-md-6 mb-4">
+     <div class="card border-left-Info shadow h-75 py-2">
+         <div class="card-body">
+             <div class="row no-gutters align-items-center">
+                 <div class="col mr-2">
+                     <div class="text-xl font-weight-bold text-Info text-uppercase mb-2">
+                         Step 2</div>
+                 </div>
+               
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <!-- step 3 -->
+ <div class="col-lg-2 col-md-6 mb-4">
+     <div class="card border-left-Info shadow h-75 py-2">
+         <div class="card-body">
+             <div class="row no-gutters align-items-center">
+                 <div class="col mr-2">
+                     <div class="text-xl font-weight-bold text-Info text-uppercase mb-2">
+                         Step 3</div>
+                 </div>
+               
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <!-- step 4 -->
+ <div class="col-lg-2 col-md-6 mb-4">
+     <div class="card border-left-danger border-bottom-danger shadow h-75 py-2">
+         <div class="card-body">
+             <div class="row no-gutters align-items-center">
+                 <div class="col mr-2">
+                     <div class="text-xl font-weight-bold text-danger text-uppercase mb-2">
+                         Step 4</div>
+                 </div>
+               
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <!-- Step 5 -->
+ <div class="col-lg-2 col-md-6 mb-4">
+     <div class="card border-left-Info shadow h-75 py-2">
+         <div class="card-body">
+             <div class="row no-gutters align-items-center">
+                 <div class="col mr-2">
+                     <div class="text-xl font-weight-bold text-Info text-uppercase mb-2">
+                         Step 5</div>
+                 </div>
+               
+             </div>
+         </div>
+     </div>
+ </div>
+</div>
+                        <!-- end card - steps -->
+        <!-- Content Row -->
+<div class="row">
+
+<div class="col-xl-8 col-lg-7">
+
+    <!-- Area Chart -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Gebäude-Info</h6>
+            <?php echo step4_form($data); ?>
+             <div id="response_body" class="container-sm"></div>
+        </div>
+        
+    </div>
+
+</div>
+
+<!-- Added Service -->
+<div class="col-xl-4 col-lg-5">
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-2">
+            <h6 class="m-0 font-weight-bold text-primary">Diensleitung-info</h6>
+        </div>
+        <div class="row mt-4">
+        <div class="col-lg">
+        <?php echo step4_cart($data); ?>
                         </div>
+                        </div>
+        <!-- Card Body -->
+       
+    </div>
+</div>
+</div>
+
+</div>
+
+</div>
+<!-- /.container-fluid -->
+                        <!-- start of form + cart -->
+                        
                         <!-- end of form + cart -->
                     </div>
                     <!-- /page-content -->
                 </div>
+                </div>
                 <!-- End of Main Content -->
-                <?php echo get_footer(); ?>
+                <!-- <?php echo get_footer(); ?> -->
 
                 <?php echo reports_form(); ?>
 
@@ -155,23 +179,34 @@ function step4($data)
 
 
 function step4_cart(
-    $word,
-    $start_date,
-    $end_date,
-    $building_type,
-    $number_of_rooms,
-    $floor,
-    $square_meters,
-    $is_elevator,
-    $ort_von,
-    $ort_nach
+    $data
 ) {
+    $service = $data["service"];
+    $word = str_replace("_", " ", $service);
+    $start_date = $data["start_date"];
+    $end_date = $data["end_date"];
+
+    $building_type = $data["building_type"];
+    $number_of_rooms = $data["number_of_rooms"];
+    $floor = $data["floor"];
+    $square_meters = $data["square_meters"];
+    $is_elevator = $data["is_elevator"];
+    $ort_von = "";
+    if (isset($data["ort_von"])) {
+        $ort_von = $data["ort_von"];
+    }
+
+    $ort_nach = "";
+    if (isset($data["ort_nach"])) {
+        $ort_nach = $data["ort_nach"];
+    }
+    $is_repeat = $data["is_repeat"];
+    if ($is_repeat == "yes"){
+        list($result, $dates, $total_hours, $number_cycles, $days,$price_per_hour) = set_repeat($data);
+    }
 ?>
-    <div class="col-md-9 col-lg-6 order-md-last">
-        <h4 class="">
-            <span class="text-primary">Your cart</span>
-            <span class="badge badge-dark bg-primary rounded-pill">1</span>
-        </h4>
+     <div class="card-body">
+        
         <ul class="list-group">
             <li class="list-group-item d-flex">
                 <div>
@@ -204,6 +239,15 @@ function step4_cart(
             }
             ?>
             <li class="list-group-item d-flex">
+                <div>
+                    <h6 class="my-0">Is Repeat?</h6>
+                    <small class="text-muted"><?php echo $is_repeat; ?></small>
+                    <?php if ($is_repeat == "yes"){
+                        echo get_repeat($number_cycles, $days, $dates, $total_hours,$price_per_hour);
+                    }?>
+                </div>
+            </li>
+            <li class="list-group-item d-flex">
                 <span>Total </span>
                 <strong><?php echo INITIAL_UMZUG_PACKAGE_AMOUNT; ?> CHF</strong>
             </li>
@@ -216,17 +260,31 @@ function step4_cart(
 }
 
 function step4_form(
-    $service,
-    $start_date,
-    $end_date,
-    $building_type,
-    $number_of_rooms,
-    $floor,
-    $square_meters,
-    $is_elevator,
-    $ort_von,
-    $ort_nach
+    $data
 ) {
+    $service = $data["service"];
+    $start_date = $data["start_date"];
+    $end_date = $data["end_date"];
+
+    $building_type = $data["building_type"];
+    $number_of_rooms = $data["number_of_rooms"];
+    $floor = $data["floor"];
+    $square_meters = $data["square_meters"];
+    $is_elevator = $data["is_elevator"];
+    $ort_von = "";
+    $is_repeat = $data["is_repeat"];
+    if (isset($data["ort_von"])) {
+        $ort_von = $data["ort_von"];
+    }
+
+    $ort_nach = "";
+    if (isset($data["ort_nach"])) {
+        $ort_nach = $data["ort_nach"];
+    }
+    $is_repeat = $data["is_repeat"];
+    if ($is_repeat == "yes"){
+        list($result, $dates, $total_hours, $number_cycles, $days, $price_per_hour) = set_repeat($data);
+    }
 ?>
     <form method="post" action="projects.php">
         <input type="hidden" name="service" value="<?php echo $service; ?>" />
@@ -240,7 +298,12 @@ function step4_form(
         <input type="hidden" name="is_elevator" value="<?php echo $is_elevator; ?>" />
         <input type="hidden" name="ort_von" value="<?php echo $ort_von; ?>" />
         <input type="hidden" name="ort_nach" value="<?php echo $ort_nach; ?>" />
-
+        <input type="hidden" name="is_repeat" value="<?php echo $is_repeat; ?>" />
+        <?php
+            if ($is_repeat == "yes"){
+                echo $result;
+            }
+        ?>
         <div class="container-sm">
             <div class="row">
                 <div class="col-md-3 mb-3">
@@ -316,7 +379,7 @@ function step4_head()
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>FinishExpress - Create New Project</title>
+        <title><?php echo MAIN_TITLE ?> - Create New Project</title>
         <!-- Custom fonts for this template -->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link

@@ -90,6 +90,7 @@ function login($profile)
     if (isset($_POST['login_button'])) {
         $id = verifyUser($_POST['username'], $_POST['password']);
         if ($id > 0) {
+            echo "i here .--- ";
             header("Location: projects.php");
         }
         $err_msg = "Invalid username or password";

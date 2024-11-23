@@ -29,15 +29,16 @@ www.kayathri.ch info@kayathri.ch Credit Suisse IBAN: CH85 0483 5172 4580 6100 0'
 
 define("PDF_FOOTER_SARAN_SOLUTIONS", '<div><p style="margin-left:70%;font-size: 8pt;">Developed By <font style="font-style:italic;text-decoration: underline;">www.saransolutions.in</font></p></div>');
 
-#local
-define("DB_NAME", "ch375071_admin");
-define("DB_USER", "ch375071_admin");
-define("DB_PASS", 'welcome3$IBM');
-
-#server
-// define("DB_NAME", "ch295301_saransol");
-// define("DB_USER", "ch295301_saransol");
-// define("DB_PASS", 'welcome3$IBM');
+function load_env(){
+	$env = file_get_contents(__DIR__."/../.env");
+	$lines = explode("\n",$env);
+	foreach($lines as $line){
+		preg_match("/([^#]+)\=(.*)/",$line,$matches);
+		if(isset($matches[2])){
+			putenv(trim($line));
+		}
+	}
+}
 
 function checkUserLoggedIn(){
     if(!isset($_SESSION['user'])){
@@ -82,6 +83,73 @@ table thead td { background-color: #EEEEEE;
 }
         </style>
 ');
+load_env();
+define("DB_NAME", getenv("DB_NAME"));
+define("COMPOSER_REPO", getenv("COMPOSER_REPO"));
+
+function set_repeat($data){
+	$dates = [];
+	$result = "";
+	$days = null;
+    $number_cycles = 0;
+    $number_tracks = 0;
+    $diff_hours = 0;
+    $is_repeat = $data["is_repeat"];
+	$result .= '<input type="hidden" name="is_repeat" value="'.$is_repeat.'" />';
+    if ($is_repeat == "yes"){
+        $total_hours = 0;
+        $number_cycles = $data["number_cycles"];
+        $days = $data["days"];
+		$price_per_hour = $data["price_per_hour"];
+        $number_tracks = $data["number_tracks"];
+        $diff_hours = $data["diff_hours"];
+        for ($i=0;$i<$number_tracks;$i++){
+            for ($j=0;$j<$number_cycles;$j++){
+                if(isset($data["tc_".$i."_slot_".$j])){
+					$dates[] = $data["tc_".$i."_slot_".$j];
+                    $total_hours += $diff_hours;
+					$result .= '<input type="hidden" name="tc_'.$i.'_slot_'.$j.'" value="'.$data["tc_".$i."_slot_".$j].'" />';
+                }
+            }
+        }
+		$result .= '<input type="hidden" name="days" value="'.$days.'" />';
+		$result .= '<input type="hidden" name="number_tracks" value="'.$number_tracks.'" />';
+		$result .= '<input type="hidden" name="number_cycles" value="'.$number_cycles.'" />';
+		$result .= '<input type="hidden" name="price_per_hour" value="'.$price_per_hour.'" />';
+		$result .= '<input type="hidden" name="diff_hours" value="'.$diff_hours.'" />';
+		$result .= '<input type="hidden" name="total_hours" value="'.$total_hours.'" />';
+    }
+	return [$result, $dates, $total_hours, $number_cycles, $days,$price_per_hour];
+}
+
+function get_repeat($number_cycles, $days, $dates, $total_hours, $price_per_hour){
+	$result = "";
+    $result .= get_repeat_single("Number of Cycles", $number_cycles);
+	$result .= get_repeat_single("Days", str_replace("_", " ", $days));
+	$result .= get_repeat_single("Preis pro Stunde", $price_per_hour);
+    $dates_r = "";
+    foreach($dates as $row){
+    	$dates_r .= '<small class="text-muted">'.$row.'</small><br>';
+    }
+	$result .= get_repeat_single("Slots", $dates_r);
+    $result .= get_repeat_single("Total Hours", $total_hours);
+	return $result;
+}
+
+function get_repeat_single($key, $value){
+	$result = 
+'<li class="list-group-item d-flex">
+	<div>
+		<h6 class="my-0">'.$key.'</h6>
+		<small class="text-muted">
+			'.$value.'
+		</small>
+	</div>
+</li>';
+	return $result;
+
+}
+
 
 
 ?>

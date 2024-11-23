@@ -61,6 +61,15 @@ function single_view($data){
 
 function remove_project($data){
     $remove_project_id = $data["remove_project_id"];
+    $rows = getFetchArray("select * from ".DB_NAME.".repeat_tasks where parent_id=".$remove_project_id);
+	if($rows != null && count($rows)>0){
+        foreach($rows as $row){
+            $sql="DELETE FROM ".DB_NAME.".repeat_dates WHERE parent_id = ".$row["id"];
+            executeSQL($sql);
+            $sql="DELETE FROM ".DB_NAME.".repeat_tasks WHERE id = ".$row["id"];
+            executeSQL($sql);
+        }
+    }
     $sql="DELETE FROM ".DB_NAME.".projects WHERE id = ".$remove_project_id;
     executeSQL($sql);
 }

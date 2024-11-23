@@ -88,4 +88,32 @@ function pdf_head(){
     </style>
     </head>';
 }
+
+function pdf_document($content, $prefix){
+    require_once COMPOSER_REPO . '/mpdf/vendor/autoload.php';
+    $mpdf = new \Mpdf\Mpdf([
+        'margin_left' => 20,
+        'margin_right' => 15,
+        'margin_top' => 48,
+        'margin_bottom' => 25,
+        'margin_header' => 10,
+        'margin_footer' => 10
+    ]);
+
+    $mpdf->SetProtection(array('print'));
+    $mpdf->SetAuthor("author");
+    $mpdf->showWatermarkText = true;
+    $mpdf->watermark_font = 'DejaVuSansCondensed';
+    $mpdf->watermarkTextAlpha = 0.1;
+    $mpdf->SetDisplayMode('fullpage');
+    $mpdf->WriteHTML($content);
+    $file_name = $prefix . "_" . date("d-m-Y") . ".pdf";
+    $mpdf->Output($file_name, "I");
+}
+
+function pdf_row($name, $value){
+    return '<tr><td width="30%" style="text-align: left;font-size:11pt;">'.$name.'</td>
+                <td width="70%" style="text-align: left;font-size:11pt;">'.$value.'</td>
+            </tr>';
+}
 ?>
