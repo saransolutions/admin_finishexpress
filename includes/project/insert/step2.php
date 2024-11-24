@@ -341,12 +341,13 @@ function validate_dates($data)
 {
    $start_date = $data["start_date"];
    $end_date = $data["end_date"];
-
-   $is_repeat = $data["is_repeat"];
-   $number_cycles = $data["number_cycles"];
-   $days = $data["days"];
-   $price_per_hour = $data["price_per_hour"];
-
+   $is_repeat = "no";
+   if (isset($data["is_repeat"])){
+      $is_repeat = $data["is_repeat"];
+      $number_cycles = $data["number_cycles"];
+      $days = $data["days"];
+      $price_per_hour = $data["price_per_hour"];
+   }
 
    if ($end_date < $start_date) {
       return '<div class="alert alert-danger" role="alert">
