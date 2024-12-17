@@ -21,7 +21,8 @@ function get_main_table()
                         <th>Stock</th>
                         <th>Datum</th>
                         <th>Preis</th>
-                        <th>Salary</th>
+                        <th>Balance</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                
@@ -61,8 +62,9 @@ function get_main_table()
                         <td>' . $floor . '</td>
                         <td>' . $execution_date . '</td>
                         <td>' . $total_price . '</td>
+                        <td>' . $balance . '</td>
                        
-                        <td>' . get_status($total_price, $advance_amount, $balance) . '</td>
+                        <td>' . get_status(  $balance) . '</td>
                     </tr>';
                 }
             
@@ -410,16 +412,14 @@ function invoice($id, $lang)
             </tr>
               
             '.$comments_line.'
-            
-           
             <tr>
                 <td colspan="2" style="text-align: left;font-size:11pt;">
                 <br><br>Bei Fragen Unklarheiten stehen Wir Ihnen gerne zur Verfügung</i>.
                 </td>
             </tr>
-           
         </table>
         ';
+
         } else {
             $termin = '<table width="100%" style="font-size: 11pt; border-collapse: collapse; margin-top:3%;margin-bottom:3%;" cellpadding="15">
             <tr>
@@ -481,6 +481,8 @@ function invoice($id, $lang)
    
 </table>
 ';
+
+
         } else {
             $part2 .= '
     <table width="100%" style="font-size: 11pt; border-collapse: collapse; margin-top:3%;margin-bottom:3%;" cellpadding="15">
@@ -502,20 +504,18 @@ function invoice($id, $lang)
         } else {
             $part2 .= generate_bill($id, $name, $address, $balance);
         }
-
+        
         $part2 .= '</body></html>';
         return $part1 . $data . $part2;
     }
 }
-function get_status($total_price, $advance_amount, $balance)
+function get_status($balance)
 {
     $status = '<span class="badge badge-warning">Requested</span>';
-    if ($total_price > 0 && $advance_amount > 0) {
-        if ($balance == 0) {
-            $status = '<span class="badge badge-success">Paid</span>';
-        } else {
-            $status = '<span class="badge badge-danger">Unpaid</span>';
-        }
+    if ($balance == 0) {
+        $status = '<span class="badge badge-success">Paid</span>';
+    } else {
+        $status = '<span class="badge badge-danger">Unpaid</span>';
     }
     return $status;
 }
@@ -576,7 +576,7 @@ function get_single_project($id)
         $data .= '<tr><td>Total Price</td><td>' . $total_price . '</td></tr>';
         $data .= '<tr><td>Advance Amount</td><td>' . $advance_amount . '</td></tr>';
         $data .= '<tr><td>Balance</td><td>' . $balance . '</td></tr>';
-        $data .= '<tr><td>Status</td><td>' . get_status($total_price, $advance_amount, $balance) . '</td></tr>';
+        $data .= '<tr><td>Status</td><td>' . get_status($balance) . '</td></tr>';
 
 
         $data .= '<tr><td colspan="2"><strong>Extra Details</strong></td></tr>';
@@ -777,12 +777,12 @@ function is_repeat($id, $lang){
             $result .= pdf_row("Number of Cycles", $row['number_cycles']);
             $result .= pdf_row("Total Hours", $row['total_hours']);
             $result .= pdf_row("Days", ucwords(str_replace("_", " ", $row['days'])));
-            $rows = getFetchArray("select * from ".DB_NAME.".repeat_dates where parent_id=".$row['id']);
-            $count = 1;
-            foreach($rows as $row){
-                $result .= pdf_row("Slot ".$count, $row['start_date_time']);
-                $count += 1;
-            }
+            // $rows = getFetchArray("select * from ".DB_NAME.".repeat_dates where parent_id=".$row['id']);
+            // $count = 1;
+            // foreach($rows as $row){
+            //     $result .= pdf_row("Slot ".$count, $row['start_date_time']);
+            //     $count += 1;
+            // }
         }
         $result .= "</table>";
     }

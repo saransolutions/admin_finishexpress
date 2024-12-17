@@ -149,7 +149,7 @@ function create_project_form_step_1()
             <div class="card-body">
             <div class="dropdown" >
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Service auswählen
+                        Diensleitung
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" href="projects.php?service=Unterhalt_Reinigung">Unterhalt Reinigung</a>
@@ -162,7 +162,9 @@ function create_project_form_step_1()
                         <a class="dropdown-item" href="projects.php?service=Umzug">Umzug</a>
                         <a class="dropdown-item" href="projects.php?service=Umzug_bei_Reinigung">Umzug bei Reinigung</a>
                       </div>
-                      </div>      
+                      
+                      </div>  
+                        
                 
             </div>
         </div>

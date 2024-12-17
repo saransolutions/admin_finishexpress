@@ -72,10 +72,10 @@ function pay_project($data){
     $pay_project_id = $data["pay_project_id"];
     $balance = $data["balance"];
     $new_balance = ($balance - $pay_now);
-    
-    $sql="UPDATE ".DB_NAME.".projects SET balance='".$new_balance."' WHERE id = ".$pay_project_id;
-    print($sql);
-    executeSQL($sql);
+    if ($new_balance >= 0){
+        $sql="UPDATE ".DB_NAME.".projects SET balance='".$new_balance."' WHERE id = ".$pay_project_id;
+        executeSQL($sql);
+    }
     return $pay_project_id;
 }
 

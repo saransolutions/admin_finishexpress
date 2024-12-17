@@ -2,7 +2,7 @@
 function create_project_form_step_2($service)
 {
    $word = str_replace("_", " ", $service);
-?>
+   ?>
 
    <head>
       <meta charset="utf-8">
@@ -10,7 +10,7 @@ function create_project_form_step_2($service)
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="description" content="">
       <meta name="author" content="">
-      <title><?php echo MAIN_TITLE;?> - Create New Project</title>
+      <title>FinishExpress - Create New Project</title>
       <!-- Custom fonts for this template -->
       <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
       <link
@@ -26,24 +26,28 @@ function create_project_form_step_2($service)
       <script src="vendor/jquery/jquery.min.js"></script>
       <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <script>
-         $(function() {
-            $("#end_date").on("change", function() {
+         $(function () {
+            $("#end_date").on("change", function () {
                let end_date = $("#end_date").val();
                let start_date = $("#start_date").val();
                let service = $("#service").val();
                let is_repeat = "no"
                is_repeat = $("#is_repeat").val();
+               let month = 0;
+               month = $("#month").val();
+               let toc = 0;
+               toc = $("#toc").val();
                let number_cycles = 0;
                number_cycles = $("#number_cycles").val();
                let price_per_hour = 0;
-               price_per_hour = $("#price_per_hour").val();
+               price_per_hour = $("#price").val();
                var vals = "";
                if (is_repeat == "yes") {
                   if (number_cycles < 1) {
                      alert("invalid number of cycle");
                   }
                   var val = [];
-                  $(':checkbox:checked').each(function(i) {
+                  $(':checkbox:checked').each(function (i) {
                      val[i] = $(this).val();
                      vals += "_" + val[i];
                   });
@@ -57,6 +61,8 @@ function create_project_form_step_2($service)
                   data: {
                      "start_date": start_date,
                      "end_date": end_date,
+                     "month": month,
+                     "toc": toc,
                      "action": "validate_dates",
                      "service": service,
                      "is_repeat": is_repeat,
@@ -65,7 +71,7 @@ function create_project_form_step_2($service)
                      "days": vals,
 
                   },
-                  success: function(data) {
+                  success: function (data) {
                      $("#response_body").html(data);
                   }
                });
@@ -192,7 +198,9 @@ function create_project_form_step_2($service)
                                  <!-- Area Chart -->
                                  <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                       <h6 class="m-0 font-weight-bold text-primary">Diensleitung für <?php echo $word; ?></h6>
+                                       <h6 class="m-0 font-weight-bold text-primary">Diensleitung für
+                                          <?php echo $word; ?>
+                                       </h6>
                                     </div>
                                     <?php
                                     $service = $_GET["service"];
@@ -201,51 +209,80 @@ function create_project_form_step_2($service)
 
                                        <div class="form-group">
                                           <div class="col-md-12 mb-6">
-                                             <label for="start_date">Is Repeat *</label>
+                                             <label for="start_date">Wiederholen *</label>
                                              <select name="is_repeat" id="is_repeat">
-                                                <option value="no">No</option>
-                                                <option value="yes">Yes</option>
+                                                <option value="yes">Ja</option>
+                                                <option value="no">Nein</option>
                                              </select>
                                           </div>
                                        </div>
 
 
                                        <!-- end repeat -->
+                                       <!-- Select Month -->
+                                       <div class="form-group">
+                                          <div class="col-md-12 mb-6">
+                                             <label for="start_date">Vertragslaufzeit *</label>
+                                             <select name="month" id="month">
+                                                <option value="3">3 Monat</option>
+                                                <option value="6">6 Monat</option>
+                                                <option value="12">1 Jahr</option>
+                                             </select>
+                                          </div>
+                                       </div>
+                                       <!-- End Month -->
                                        <!-- tage -->
-
+                                       <!-- Type of cycle -->
+                                       <div class="form-group">
+                                          <div class="col-md-12 mb-6">
+                                             <label for="type of cycle">Zyklustyp *</label>
+                                             <select name="toc" id="toc">
+                                                <option value="7">Jede Woche</option>
+                                                <option value="14">Jede 2 Wochen</option>
+                                                <option value="30">Jede Monat</option>
+                                             </select>
+                                          </div>
+                                       </div>
+                                       <!-- End Type of cycle -->
 
                                        <div class="form-group">
                                           <div class="col-md-12 mb-6">
                                              <label for="end_date">Welche Tage </label><br>
-                                             <input type="checkbox" id="days" name="days" value="monday"> Montag </input><br>
-                                             <input type="checkbox" id="days" name="days" value="tuesday"> Dienstag </input> <br>
-                                             <input type="checkbox" id="days" name="days" value="wednesday"> Mittwoch </input><br>
-                                             <input type="checkbox" id="days" name="days" value="thursday"> Donnerstag </input><br>
-                                             <input type="checkbox" id="days" name="days" value="friday"> Fritag</input><br>
-                                             <input type="checkbox" id="days" name="days" value="saturday"> Samstag </input>
+                                             <input type="checkbox" id="days" name="days" value="monday"> Montag
+                                             </input><br>
+                                             <input type="checkbox" id="days" name="days" value="tuesday">
+                                             Dienstag </input>
+                                             <br>
+                                             <input type="checkbox" id="days" name="days" value="wednesday">
+                                             Mittwoch
+                                             </input><br>
+                                             <input type="checkbox" id="days" name="days" value="thursday">
+                                             Donnerstag
+                                             </input><br>
+                                             <input type="checkbox" id="days" name="days" value="friday">
+                                             Freitag</input><br>
+                                             <input type="checkbox" id="days" name="days" value="saturday">
+                                             Samstag </input>
                                              <div class="invalid-feedback">Invalid Execution Date *</div>
                                           </div>
                                        </div>
 
                                        <!-- end Tage -->
-                                       <!-- how many -->
-                                       <div class="form-group">
-                                          <div class="col-md-12 mb-6">
-                                             <label for="end_date">Number of Cycles </label>
-                                             <input type="number" min="1" max="400" id="number_cycles" name="number_cycles"> </input>
-                                             <div class="invalid-feedback">Invalid Execution Date *</div>
-                                          </div>
-                                       </div>
+                                     
 
 
-                                       <!-- how many -->
+
                                        <div class="form-group">
                                           <div class="col-md-12 mb-6">
                                              <label for="end_date">Preis pro Stunde : </label>
-                                             <input type="number" id="price_per_hour" name="price_per_hour" placeholder="Preis in CHF"> </input>
+                                             <input type="number" id="price" name="price_per_hour" placeholder="Preis in CHF">
+                                             </input>
                                              <div class="invalid-feedback">Invalid Execution Preis *</div>
                                           </div>
                                        </div>
+
+
+                                       <!-- end how many -->
                                        <!-- end how many -->
 
                                     <?php }
@@ -258,12 +295,14 @@ function create_project_form_step_2($service)
                                        <input type="hidden" id="service" value="<?php echo $service; ?>"></input>
                                        <div class="col-md-5 mb-3">
                                           <label for="start_date">Von *</label>
-                                          <input type="datetime-local" min="<?php echo date("Y-m-d"); ?>" class="form-control" id="start_date" name="start_date" required="">
+                                          <input type="datetime-local" min="<?php echo date("Y-m-d"); ?>"
+                                             class="form-control" id="start_date" name="start_date" required="">
                                           <div class="invalid-feedback">Invalid Execution Date *</div>
                                        </div>
                                        <div class="col-md-4 mb-3">
                                           <label for="end_date">Bis *</label>
-                                          <input type="datetime-local" min="<?php echo date("Y-m-d"); ?>" class="form-control" id="end_date" name="end_date" required="">
+                                          <input type="datetime-local" min="<?php echo date("Y-m-d"); ?>"
+                                             class="form-control" id="end_date" name="end_date" required="">
                                           <div class="invalid-feedback">Invalid Execution Date *</div>
                                        </div>
                                     </div>
@@ -297,7 +336,9 @@ function create_project_form_step_2($service)
                                              <strong><?php echo INITIAL_UMZUG_PACKAGE_AMOUNT; ?> CHF</strong>
                                           </li>
                                           <li class="list-group-item d-flex">
-                                             <a href="projects.php" class="btn btn-secondary btn-sm" onclick="return confirm('Sind Sie sicher?')" name="cancel_project">Abrechnen</a>
+                                             <a href="projects.php" class="btn btn-secondary btn-sm"
+                                                onclick="return confirm('Sind Sie sicher?')"
+                                                name="cancel_project">Abrechnen</a>
                                           </li>
                                        </ul>
                                     </div>
@@ -334,20 +375,106 @@ function create_project_form_step_2($service)
          </a>
          <?php echo js_scripts() ?>
    </body>
-<?php
+   <?php
+}
+function get_number_cycle($data)
+{
+   $start_date = $data["start_date"];
+   $end_date = $data["end_date"];
+   $months = $data["month"];
+   $type_of_cycle = null;
+   if(isset($data["toc"])){
+      $type_of_cycle = $data["toc"];
+   }
+   
+   $days = $data["days"];
+   
+   $tracks = explode("_", $days);
+   $tc = 0;
+   foreach ($tracks as $track) {
+      if (strlen($track) > 0) {
+         if ($tc > 0) {
+            $date = new DateTime($start_date);
+            $date->modify('next ' . $track);
+            $start_date = $date->format('Y-m-d');
+         }
+         $tc += 1;
+      }
+   }
+   $tmp = date('Y-m-d', strtotime($start_date));
+   $sql = "SELECT DATE_ADD('" . $tmp . "', INTERVAL '" . $months . "' MONTH) as months";
+   $end_date = getSingleValue($sql);
+   $j = 7;
+   $count = 0;
+   for ($i = 1; $i < 52; $i++) {
+      $sql = "SELECT '" . $tmp . "' + INTERVAL " . $j . " DAY";
+      $value = getSingleValue($sql);
+      $value = date('Y-m-d', strtotime($value));
+      $tmp_end_date = date('Y-m-d', strtotime($end_date));
+      if ($value <= $tmp_end_date) {
+         $count += 1;
+      } else {
+         break;
+      }
+      $j += 7;
+   }
+   if ($type_of_cycle == 14) {
+
+      $j = 14;
+      $count = 0;
+      for ($i = 1; $i < 52; $i++) {
+         $sql = "SELECT '" . $tmp . "' + INTERVAL " . $j . " DAY";
+         $value = getSingleValue($sql);
+         $value = date('Y-m-d', strtotime($value));
+         $tmp_end_date = date('Y-m-d', strtotime($end_date));
+         if ($value <= $tmp_end_date) {
+            $count += 1;
+
+         } else {
+            break;
+         }
+         $j += 14;
+      }
+   }
+   if ($type_of_cycle == 30) {
+      $j = 30;
+      $count = 0;
+      for ($i = 1; $i < 52; $i++) {
+         $sql = "SELECT '" . $tmp . "' + INTERVAL " . $j . " DAY";
+         $value = getSingleValue($sql);
+         $value = date('Y-m-d', strtotime($value));
+         $tmp_end_date = date('Y-m-d', strtotime($end_date));
+         if ($value <= $tmp_end_date) {
+            $count += 1;
+
+         } else {
+            break;
+         }
+         $j += 30;
+      }
+   }
+
+   return $count;
 }
 
 function validate_dates($data)
 {
    $start_date = $data["start_date"];
    $end_date = $data["end_date"];
+   $type_of_cycle = null;
+   if (isset($data["toc"])){
+      $type_of_cycle = $data["toc"];
+   }
+   
+
    $is_repeat = "no";
-   if (isset($data["is_repeat"])){
+   if (isset($data["is_repeat"])) {
       $is_repeat = $data["is_repeat"];
-      $number_cycles = $data["number_cycles"];
+      $number_cycles = get_number_cycle($data);
       $days = $data["days"];
       $price_per_hour = $data["price_per_hour"];
    }
+
 
    if ($end_date < $start_date) {
       return '<div class="alert alert-danger" role="alert">
@@ -386,17 +513,47 @@ function validate_dates($data)
                   $date->modify('next ' . $track);
                   $tmp = $date->format('Y-m-d');
                }
-               $j = 7;
-               $days_list .= '<li class="list-group-item">' . ucwords($track) . ' Slots</li>';
-               $days_list .= '<li class="list-group-item"><input class="form-check-input" type="checkbox" name="tc_' . $tc . '_slot_0" value="' . $tmp . '" checked>' . $tmp . '</li>';
-               $total_hours += $diff_hours;
-               for ($i = 1; $i < $number_cycles; $i++) {
-                  $sql = "SELECT '" . $tmp . "' + INTERVAL " . $j . " DAY";
-                  $value = getSingleValue($sql);
-                  $value = date('Y-m-d', strtotime($value));
-                  $days_list .= '<li class="list-group-item"><input class="form-check-input" type="checkbox" name="tc_' . $tc . '_slot_' . $i . '" value="' . $value . '" checked>' . $value  . '</li>';
-                  $j += 7;
+               if ($type_of_cycle == 7) {
+                  $j = 7;
+                  $days_list .= '<li class="list-group-item">' . ucwords($track) . ' Slots</li>';
+                  $days_list .= '<li class="list-group-item"><input class="form-check-input" type="checkbox" name="tc_' . $tc . '_slot_0" value="' . $tmp . '" checked>' . $tmp . '</li>';
                   $total_hours += $diff_hours;
+                  for ($i = 1; $i < $number_cycles; $i++) {
+                     $sql = "SELECT '" . $tmp . "' + INTERVAL " . $j . " DAY";
+                     $value = getSingleValue($sql);
+                     $value = date('Y-m-d', strtotime($value));
+                     $days_list .= '<li class="list-group-item"><input class="form-check-input" type="checkbox" name="tc_' . $tc . '_slot_' . $i . '" value="' . $value . '" checked>' . $value . '</li>';
+                     $j += 7;
+                     $total_hours += $diff_hours;
+                  }
+               } elseif ($type_of_cycle == 14) {
+                  $j = 14;
+                  $days_list .= '<li class="list-group-item">' . ucwords($track) . ' Slots</li>';
+                  $days_list .= '<li class="list-group-item"><input class="form-check-input" type="checkbox" name="tc_' . $tc . '_slot_0" value="' . $tmp . '" checked>' . $tmp . '</li>';
+                  $total_hours += $diff_hours;
+                  for ($i = 1; $i < $number_cycles; $i++) {
+                     $sql = "SELECT '" . $tmp . "' + INTERVAL " . $j . " DAY";
+                     $value = getSingleValue($sql);
+                     $value = date('Y-m-d', strtotime($value));
+                     $days_list .= '<li class="list-group-item"><input class="form-check-input" type="checkbox" name="tc_' . $tc . '_slot_' . $i . '" value="' . $value . '" checked>' . $value . '</li>';
+                     $j += 14;
+                    
+                     $total_hours += $diff_hours;
+                  }
+               } elseif ($type_of_cycle == 30) {
+                  $j = 30;
+                  $days_list .= '<li class="list-group-item">' . ucwords($track) . ' Slots</li>';
+                  $days_list .= '<li class="list-group-item"><input class="form-check-input" type="checkbox" name="tc_' . $tc . '_slot_0" value="' . $tmp . '" checked>' . $tmp . '</li>';
+                  $total_hours += $diff_hours;
+                  for ($i = 1; $i < $number_cycles; $i++) {
+                     $sql = "SELECT '" . $tmp . "' + INTERVAL " . $j . " DAY";
+                     $value = getSingleValue($sql);
+                     $value = date('Y-m-d', strtotime($value));
+                     $days_list .= '<li class="list-group-item"><input class="form-check-input" type="checkbox" name="tc_' . $tc . '_slot_' . $i . '" value="' . $value . '" checked>' . $value . '</li>';
+                     $j += 30;
+                     
+                     $total_hours += $diff_hours;
+                  }
                }
                $tc += 1;
             }

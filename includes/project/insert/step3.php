@@ -146,9 +146,7 @@ function step3($data)
     </div>
 </div>
 
-</div>
 
-</div>
 <!-- /.container-fluid -->
 
                     </div>

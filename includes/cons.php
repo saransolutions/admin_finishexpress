@@ -131,7 +131,7 @@ function get_repeat($number_cycles, $days, $dates, $total_hours, $price_per_hour
     foreach($dates as $row){
     	$dates_r .= '<small class="text-muted">'.$row.'</small><br>';
     }
-	$result .= get_repeat_single("Slots", $dates_r);
+	#$result .= get_repeat_single("Slots", $dates_r);
     $result .= get_repeat_single("Total Hours", $total_hours);
 	return $result;
 }

@@ -1,1 +1,4 @@
-.env
+composer-repos/*
+node_modules
+bills/*
+album/*
